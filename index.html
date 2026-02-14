@@ -267,11 +267,32 @@
             }
         }
 
+        /* Bounce animation for I love you button */
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-15px);
+            }
+            60% {
+                transform: translateY(-8px);
+            }
+        }
+
         .love-btn {
             animation: buttonPulse 2s ease-in-out infinite;
         }
 
         .love-btn:hover {
+            animation: none;
+        }
+
+        .love-btn.bounce {
+            animation: bounce 1.5s ease-in-out infinite, buttonPulse 2s ease-in-out infinite;
+        }
+
+        .love-btn.bounce:hover {
             animation: none;
         }
 
@@ -350,6 +371,167 @@
 
         #gameContainer.active {
             display: block;
+        }
+
+        /* Maze Game Styles */
+        #mazeGameContainer {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 1000;
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+        }
+
+        #mazeGameContainer.active {
+            display: block;
+        }
+
+        #mazeCanvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+        }
+
+        .maze-ui-overlay {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+
+        .maze-back-button {
+            background: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+            color: #4caf50;
+            text-decoration: none;
+            pointer-events: auto;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        .maze-back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        #mazeEndScreen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255, 240, 245, 0.95);
+            z-index: 200;
+            padding: 20px;
+        }
+
+        .maze-end-message {
+            font-size: 48px;
+            font-weight: 300;
+            color: #c44569;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .maze-heart-display {
+            font-size: 80px;
+            margin: 20px 0;
+            animation: heartBeat 1.5s infinite;
+        }
+
+        /* Pokemon Game Styles */
+        #pokemonGameContainer {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 1000;
+            background: linear-gradient(135deg, #a8d5ba 0%, #7fb069 100%);
+        }
+
+        #pokemonGameContainer.active {
+            display: block;
+        }
+
+        #pokemonCanvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+        }
+
+        .pokemon-ui-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .pokemon-instructions {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+            color: #c44569;
+            max-width: 300px;
+        }
+
+        #pokemonEndScreen {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgba(135, 206, 235, 0.95);
+            z-index: 200;
+            padding: 20px;
+        }
+
+        #pokemonEndScreen.show {
+            display: flex;
+        }
+
+        .pokemon-heart {
+            font-size: 120px;
+            animation: heartBeat 1.5s infinite;
+            margin: 20px 0;
+        }
+
+        .pokemon-message {
+            font-size: 32px;
+            font-weight: 300;
+            color: #c44569;
+            margin: 20px 0;
+            text-align: center;
         }
 
         #gameCanvas {
@@ -520,11 +702,14 @@
         <div class="success-container" id="successContainer">
             <div class="love-message">❤️</div>
             <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-                <a href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcDoa1tURo7VpxEi7xhuZ9yRHDjHLvTeRJ6w&s" class="love-btn" target="_blank">
+                <a href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcDoa1tURo7VpxEi7xhuZ9yRHDjHLvTeRJ6w&s" class="love-btn bounce" target="_blank">
                     I love you!
                 </a>
-                <button class="love-btn" onclick="openGame()" style="background: linear-gradient(135deg, #ff8fab 0%, #ff69b4 100%); cursor: pointer;">
+                <button class="love-btn bounce" onclick="openGame()" style="background: linear-gradient(135deg, #ff8fab 0%, #ff69b4 100%); cursor: pointer;">
                     Let's have fun
+                </button>
+                <button class="love-btn bounce" onclick="openPokemonGame()" style="background: linear-gradient(135deg, #ffa07a 0%, #ff6347 100%); cursor: pointer;">
+                    I choose you!
                 </button>
             </div>
             <div class="thank-you">Thanks for being my Valentine! 💐</div>
@@ -536,16 +721,24 @@
         <canvas id="gameCanvas"></canvas>
         
         <div class="ui-overlay">
-            <div class="score-display">Score: <span id="scoreValue">0</span></div>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                <div class="score-display">Score: <span id="scoreValue">0</span></div>
+                <div class="score-display">Lives: <span id="livesValue">3</span> ❤️</div>
+            </div>
             <button class="back-button" onclick="exitGame()">← Back</button>
         </div>
 
         <div id="startScreen">
             <h2 class="game-title">Catch the Love! 💕</h2>
+            <div class="score-display" style="margin-bottom: 20px; font-size: 16px;">
+                <div style="font-weight: 600; margin-bottom: 8px;">🏆 High Scores 🏆</div>
+                <div>1. Hailee - 68 points</div>
+                <div>2. Eric - 67 points</div>
+            </div>
             <p class="instruction">
                 Move the basket to catch falling hearts and flowers!<br>
                 Use your mouse or finger to control the basket.<br>
-                Don't let them fall!
+                You have 3 lives - don't let too many fall!
             </p>
             <button class="play-button" onclick="startGame()">Start Game</button>
         </div>
@@ -553,10 +746,52 @@
         <div id="gameOverScreen">
             <p class="game-over-text">Game Over!</p>
             <div class="final-score" id="finalScore">0</div>
-            <p class="instruction">Great job catching all that love!</p>
+            <p class="instruction" id="gameOverMessage">Great job catching all that love!</p>
+            <div class="score-display" style="margin: 20px 0; font-size: 14px;">
+                <div style="font-weight: 600; margin-bottom: 5px;">🏆 High Scores 🏆</div>
+                <div>1. Hailee - 68 points</div>
+                <div>2. Eric - 67 points</div>
+            </div>
             <button class="play-button" onclick="restartGame()">Play Again</button>
             <br><br>
             <button class="back-button" onclick="exitGame()">← Back to Valentine</button>
+        </div>
+    </div>
+
+    <!-- Pokemon Maze Game Container -->
+    <div id="pokemonGameContainer">
+        <canvas id="pokemonCanvas"></canvas>
+        
+        <div class="pokemon-ui-overlay">
+            <div class="pokemon-instructions">
+                <div style="font-weight: 500; margin-bottom: 5px;">Score: <span id="pokemonScoreValue">0</span></div>
+                Use arrow keys or swipe to help Eric find Hailee! 💕
+            </div>
+            <button class="back-button" onclick="exitPokemonGame()">← Back</button>
+        </div>
+
+        <div id="pokemonEndScreen">
+            <p class="pokemon-message">Eric found Hailee! 💝</p>
+            <div class="pokemon-heart">❤️</div>
+            <p class="instruction">Final Score: <span id="pokemonFinalScore">0</span> points!</p>
+            <p class="instruction">Love always finds a way!</p>
+            <button class="play-button" onclick="exitPokemonGame()">Back to Valentine</button>
+        </div>
+    </div>
+
+    <!-- Maze Game Container -->
+    <div id="mazeGameContainer">
+        <canvas id="mazeCanvas"></canvas>
+        
+        <div class="maze-ui-overlay">
+            <button class="maze-back-button" onclick="exitMazeGame()">← Back</button>
+        </div>
+
+        <div id="mazeEndScreen">
+            <p class="maze-end-message">Ash found Misty! 💕</p>
+            <div class="maze-heart-display">❤️</div>
+            <p class="instruction">Love always finds a way!</p>
+            <button class="play-button" onclick="exitMazeGame()">Back to Valentine</button>
         </div>
     </div>
 
@@ -772,6 +1007,7 @@
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
         let gameScore = 0;
+        let gameLives = 3;
         let gameRunning = false;
         let animationId;
         let fallingItems = [];
@@ -951,6 +1187,17 @@
                     // Visual feedback
                     createCatchEffect(item.x + item.size / 2, basket.y);
                 } else if (item.isOffScreen()) {
+                    // Lost a life - missed the item
+                    if (!item.caught) {
+                        gameLives--;
+                        document.getElementById('livesValue').textContent = gameLives;
+                        
+                        // Check if game over
+                        if (gameLives <= 0) {
+                            endGame();
+                            return;
+                        }
+                    }
                     fallingItems.splice(i, 1);
                 }
             }
@@ -998,23 +1245,18 @@
         function startGame() {
             document.getElementById('startScreen').style.display = 'none';
             gameScore = 0;
+            gameLives = 3;
             difficulty = 1;
             fallingItems = [];
             gameRunning = true;
             updateGameScore(0);
+            document.getElementById('livesValue').textContent = gameLives;
             
             // Spawn items at intervals
             spawnInterval = setInterval(spawnItem, 800);
             
             // Start game loop
             gameLoop();
-
-            // Game duration: 60 seconds
-            setTimeout(() => {
-                if (gameRunning) {
-                    endGame();
-                }
-            }, 60000);
         }
 
         // End game
@@ -1024,6 +1266,24 @@
             cancelAnimationFrame(animationId);
             
             document.getElementById('finalScore').textContent = gameScore;
+            
+            // Update message based on score
+            const messageElement = document.getElementById('gameOverMessage');
+            if (gameScore > 68) {
+                messageElement.textContent = "🎉 NEW HIGH SCORE! You beat Hailee! 🎉";
+                messageElement.style.color = '#d4af37';
+                messageElement.style.fontWeight = '600';
+            } else if (gameScore === 68) {
+                messageElement.textContent = "Amazing! You tied with Hailee! 💕";
+                messageElement.style.color = '#c44569';
+            } else if (gameScore > 67) {
+                messageElement.textContent = "So close! You beat Eric! Keep trying! 💪";
+                messageElement.style.color = '#c44569';
+            } else {
+                messageElement.textContent = "Great job catching all that love! Try to beat the high scores! ❤️";
+                messageElement.style.color = '#c44569';
+            }
+            
             document.getElementById('gameOverScreen').style.display = 'flex';
         }
 
@@ -1032,6 +1292,577 @@
             document.getElementById('gameOverScreen').style.display = 'none';
             startGame();
         }
+
+        // Pokemon Maze Game
+        const pokemonGameContainer = document.getElementById('pokemonGameContainer');
+        const pokemonCanvas = document.getElementById('pokemonCanvas');
+        const pokemonCtx = pokemonCanvas.getContext('2d');
+        
+        let eric = { x: 0, y: 0, size: 30 };
+        let hailee = { x: 0, y: 0, size: 30 };
+        let maze = [];
+        let pokeballs = [];
+        let pokemonScore = 0;
+        let pokemonGameRunning = false;
+        let pokemonAnimationId;
+        let touchStartX = 0;
+        let touchStartY = 0;
+
+        const CELL_SIZE = 40;
+        const COLS = 11;
+        const ROWS = 11;
+
+        // Open Pokemon game
+        function openPokemonGame() {
+            pokemonGameContainer.classList.add('active');
+            document.getElementById('pokemonEndScreen').classList.remove('show');
+            resizePokemonCanvas();
+            initPokemonMaze();
+            pokemonGameRunning = true;
+            pokemonGameLoop();
+        }
+
+        // Exit Pokemon game
+        function exitPokemonGame() {
+            pokemonGameContainer.classList.remove('active');
+            pokemonGameRunning = false;
+            cancelAnimationFrame(pokemonAnimationId);
+        }
+
+        // Resize Pokemon canvas
+        function resizePokemonCanvas() {
+            const maxWidth = Math.min(window.innerWidth, 600);
+            const maxHeight = Math.min(window.innerHeight, 600);
+            const size = Math.min(maxWidth, maxHeight);
+            
+            pokemonCanvas.width = COLS * CELL_SIZE;
+            pokemonCanvas.height = ROWS * CELL_SIZE;
+        }
+
+        // Initialize maze
+        function initPokemonMaze() {
+            // Create a simple maze - 0 = path, 1 = wall
+            maze = [
+                [0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0],
+                [1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1],
+                [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+                [0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0],
+                [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+                [1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1],
+                [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+                [0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0],
+                [0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0],
+                [1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1],
+                [0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0]
+            ];
+
+            // Place Eric at top-left
+            eric.x = 0;
+            eric.y = 0;
+
+            // Place Hailee at bottom-right
+            hailee.x = COLS - 1;
+            hailee.y = ROWS - 1;
+
+            // Reset score
+            pokemonScore = 0;
+            document.getElementById('pokemonScoreValue').textContent = pokemonScore;
+
+            // Generate pokeballs on path tiles
+            pokeballs = [];
+            for (let row = 0; row < ROWS; row++) {
+                for (let col = 0; col < COLS; col++) {
+                    // Place pokeballs on empty path tiles (not start, not end, random 30% chance)
+                    if (maze[row][col] === 0 && 
+                        !(row === 0 && col === 0) && 
+                        !(row === ROWS - 1 && col === COLS - 1) &&
+                        Math.random() < 0.3) {
+                        pokeballs.push({ x: col, y: row, collected: false });
+                    }
+                }
+            }
+        }
+
+        // Draw Pokemon game
+        function drawPokemonGame() {
+            pokemonCtx.clearRect(0, 0, pokemonCanvas.width, pokemonCanvas.height);
+
+            // Draw maze
+            for (let row = 0; row < ROWS; row++) {
+                for (let col = 0; col < COLS; col++) {
+                    const x = col * CELL_SIZE;
+                    const y = row * CELL_SIZE;
+
+                    if (maze[row][col] === 1) {
+                        // Wall - draw tree with Pokemon Sapphire style
+                        // Tree trunk
+                        pokemonCtx.fillStyle = '#8B4513';
+                        pokemonCtx.fillRect(x + 14, y + 20, 12, 20);
+                        
+                        // Tree foliage - layered circles for depth
+                        pokemonCtx.fillStyle = '#1a5928';
+                        pokemonCtx.beginPath();
+                        pokemonCtx.arc(x + 20, y + 18, 16, 0, Math.PI * 2);
+                        pokemonCtx.fill();
+                        
+                        pokemonCtx.fillStyle = '#2d7a3e';
+                        pokemonCtx.beginPath();
+                        pokemonCtx.arc(x + 20, y + 15, 14, 0, Math.PI * 2);
+                        pokemonCtx.fill();
+                        
+                        pokemonCtx.fillStyle = '#3d9b50';
+                        pokemonCtx.beginPath();
+                        pokemonCtx.arc(x + 20, y + 12, 11, 0, Math.PI * 2);
+                        pokemonCtx.fill();
+                        
+                        // Highlight on foliage
+                        pokemonCtx.fillStyle = '#5bc76b';
+                        pokemonCtx.beginPath();
+                        pokemonCtx.arc(x + 17, y + 10, 5, 0, Math.PI * 2);
+                        pokemonCtx.fill();
+                    } else {
+                        // Path - grass with Pokemon Sapphire style pattern
+                        // Base grass
+                        pokemonCtx.fillStyle = '#7fb069';
+                        pokemonCtx.fillRect(x, y, CELL_SIZE, CELL_SIZE);
+                        
+                        // Darker grass checker pattern
+                        pokemonCtx.fillStyle = '#6b9c5a';
+                        if ((row + col) % 2 === 0) {
+                            pokemonCtx.fillRect(x, y, CELL_SIZE / 2, CELL_SIZE / 2);
+                            pokemonCtx.fillRect(x + CELL_SIZE / 2, y + CELL_SIZE / 2, CELL_SIZE / 2, CELL_SIZE / 2);
+                        }
+                        
+                        // Small grass tufts
+                        pokemonCtx.fillStyle = '#5a8448';
+                        const tufts = [
+                            [x + 5, y + 8],
+                            [x + 28, y + 12],
+                            [x + 15, y + 28],
+                            [x + 32, y + 30]
+                        ];
+                        tufts.forEach(([tx, ty]) => {
+                            pokemonCtx.fillRect(tx, ty, 2, 4);
+                            pokemonCtx.fillRect(tx + 2, ty - 1, 2, 4);
+                            pokemonCtx.fillRect(tx + 4, ty, 2, 4);
+                        });
+                    }
+                }
+            }
+
+            // Draw Hailee (target) - Pokemon Sapphire trainer style - lighter and cuter
+            const haileeX = hailee.x * CELL_SIZE + CELL_SIZE / 2;
+            const haileeY = hailee.y * CELL_SIZE + CELL_SIZE / 2;
+            
+            // Shadow
+            pokemonCtx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+            pokemonCtx.beginPath();
+            pokemonCtx.ellipse(haileeX, haileeY + 12, 10, 4, 0, 0, Math.PI * 2);
+            pokemonCtx.fill();
+
+            // Draw Pokeballs before characters so they appear under them
+            pokeballs.forEach(ball => {
+                if (!ball.collected) {
+                    const ballX = ball.x * CELL_SIZE + CELL_SIZE / 2;
+                    const ballY = ball.y * CELL_SIZE + CELL_SIZE / 2;
+                    
+                    // Pokeball - red top
+                    pokemonCtx.fillStyle = '#e74c3c';
+                    pokemonCtx.beginPath();
+                    pokemonCtx.arc(ballX, ballY, 8, Math.PI, 0, true);
+                    pokemonCtx.fill();
+                    
+                    // Pokeball - white bottom
+                    pokemonCtx.fillStyle = '#ecf0f1';
+                    pokemonCtx.beginPath();
+                    pokemonCtx.arc(ballX, ballY, 8, 0, Math.PI, true);
+                    pokemonCtx.fill();
+                    
+                    // Pokeball - black middle line
+                    pokemonCtx.strokeStyle = '#2c3e50';
+                    pokemonCtx.lineWidth = 2;
+                    pokemonCtx.beginPath();
+                    pokemonCtx.moveTo(ballX - 8, ballY);
+                    pokemonCtx.lineTo(ballX + 8, ballY);
+                    pokemonCtx.stroke();
+                    
+                    // Pokeball - white center circle
+                    pokemonCtx.fillStyle = '#ecf0f1';
+                    pokemonCtx.beginPath();
+                    pokemonCtx.arc(ballX, ballY, 3, 0, Math.PI * 2);
+                    pokemonCtx.fill();
+                    
+                    // Pokeball - center outline
+                    pokemonCtx.strokeStyle = '#2c3e50';
+                    pokemonCtx.lineWidth = 1.5;
+                    pokemonCtx.beginPath();
+                    pokemonCtx.arc(ballX, ballY, 3, 0, Math.PI * 2);
+                    pokemonCtx.stroke();
+                }
+            });
+            
+            // Hailee legs - princess skin tone (fair/porcelain)
+            pokemonCtx.fillStyle = '#ffeef5';
+            pokemonCtx.fillRect(haileeX - 4, haileeY + 4, 3, 8);
+            pokemonCtx.fillRect(haileeX + 1, haileeY + 4, 3, 8);
+            
+            // Princess shoes - elegant gold
+            pokemonCtx.fillStyle = '#ffd700';
+            pokemonCtx.fillRect(haileeX - 5, haileeY + 11, 4, 3);
+            pokemonCtx.fillRect(haileeX + 1, haileeY + 11, 4, 3);
+            
+            // Shoe sparkles
+            pokemonCtx.fillStyle = '#fff';
+            pokemonCtx.fillRect(haileeX - 4, haileeY + 11, 1, 1);
+            pokemonCtx.fillRect(haileeX + 2, haileeY + 11, 1, 1);
+            
+            // Princess dress - elegant lavender/purple with sparkle
+            pokemonCtx.fillStyle = '#dda0dd';
+            pokemonCtx.beginPath();
+            // Flowing dress shape
+            pokemonCtx.moveTo(haileeX - 8, haileeY + 4);
+            pokemonCtx.lineTo(haileeX + 8, haileeY + 4);
+            pokemonCtx.lineTo(haileeX + 6, haileeY - 4);
+            pokemonCtx.lineTo(haileeX - 6, haileeY - 4);
+            pokemonCtx.closePath();
+            pokemonCtx.fill();
+            
+            // Dress bodice - light purple
+            pokemonCtx.fillStyle = '#e6b3ff';
+            pokemonCtx.fillRect(haileeX - 6, haileeY - 4, 12, 5);
+            
+            // Princess dress details - sparkles and trim
+            pokemonCtx.fillStyle = '#fff';
+            pokemonCtx.fillRect(haileeX - 5, haileeY - 3, 1, 1);
+            pokemonCtx.fillRect(haileeX, haileeY - 2, 1, 1);
+            pokemonCtx.fillRect(haileeX + 4, haileeY - 3, 1, 1);
+            pokemonCtx.fillRect(haileeX - 3, haileeY + 1, 1, 1);
+            pokemonCtx.fillRect(haileeX + 2, haileeY + 2, 1, 1);
+            
+            // Gold trim on dress
+            pokemonCtx.fillStyle = '#ffd700';
+            pokemonCtx.fillRect(haileeX - 6, haileeY - 4, 12, 1);
+            
+            // Elegant necklace/jewel
+            pokemonCtx.fillStyle = '#ff69b4';
+            pokemonCtx.beginPath();
+            pokemonCtx.arc(haileeX, haileeY - 4, 2, 0, Math.PI * 2);
+            pokemonCtx.fill();
+            
+            // Arms - princess skin tone
+            pokemonCtx.fillStyle = '#ffeef5';
+            pokemonCtx.fillRect(haileeX - 9, haileeY - 2, 2, 5);
+            pokemonCtx.fillRect(haileeX + 7, haileeY - 2, 2, 5);
+            
+            // Elegant gloves
+            pokemonCtx.fillStyle = '#fff';
+            pokemonCtx.fillRect(haileeX - 9, haileeY + 2, 2, 2);
+            pokemonCtx.fillRect(haileeX + 7, haileeY + 2, 2, 2);
+            
+            // Neck - princess skin
+            pokemonCtx.fillStyle = '#ffeef5';
+            pokemonCtx.fillRect(haileeX - 2, haileeY - 6, 4, 3);
+            
+            // Head - princess skin (porcelain/fair)
+            pokemonCtx.fillStyle = '#ffeef5';
+            pokemonCtx.beginPath();
+            pokemonCtx.arc(haileeX, haileeY - 10, 7, 0, Math.PI * 2);
+            pokemonCtx.fill();
+            
+            // Beautiful flowing hair - golden blonde
+            pokemonCtx.fillStyle = '#f4d03f';
+            pokemonCtx.beginPath();
+            pokemonCtx.arc(haileeX, haileeY - 13, 8, 0, Math.PI);
+            pokemonCtx.fill();
+            pokemonCtx.fillRect(haileeX - 8, haileeY - 13, 16, 6);
+            
+            // Hair highlights - lighter blonde
+            pokemonCtx.fillStyle = '#fff8dc';
+            pokemonCtx.beginPath();
+            pokemonCtx.arc(haileeX - 2, haileeY - 14, 3, 0, Math.PI);
+            pokemonCtx.fill();
+            pokemonCtx.beginPath();
+            pokemonCtx.arc(haileeX + 3, haileeY - 14, 2, 0, Math.PI);
+            pokemonCtx.fill();
+            
+            // Long flowing hair sides
+            pokemonCtx.fillStyle = '#f4d03f';
+            pokemonCtx.fillRect(haileeX - 9, haileeY - 12, 3, 8);
+            pokemonCtx.fillRect(haileeX + 6, haileeY - 12, 3, 8);
+            
+            // Princess crown/tiara
+            pokemonCtx.fillStyle = '#ffd700';
+            pokemonCtx.fillRect(haileeX - 6, haileeY - 15, 12, 2);
+            // Crown points
+            pokemonCtx.fillRect(haileeX - 5, haileeY - 17, 2, 2);
+            pokemonCtx.fillRect(haileeX - 1, haileeY - 18, 2, 3);
+            pokemonCtx.fillRect(haileeX + 3, haileeY - 17, 2, 2);
+            
+            // Crown jewels
+            pokemonCtx.fillStyle = '#ff69b4';
+            pokemonCtx.fillRect(haileeX - 4, haileeY - 16, 1, 1);
+            pokemonCtx.fillRect(haileeX, haileeY - 17, 1, 1);
+            pokemonCtx.fillRect(haileeX + 4, haileeY - 16, 1, 1);
+            
+            // Beautiful eyes - large and expressive
+            pokemonCtx.fillStyle = '#4a90e2';
+            pokemonCtx.fillRect(haileeX - 4, haileeY - 11, 2, 2);
+            pokemonCtx.fillRect(haileeX + 2, haileeY - 11, 2, 2);
+            
+            // Eye lashes (top)
+            pokemonCtx.fillStyle = '#2c3e50';
+            pokemonCtx.fillRect(haileeX - 5, haileeY - 12, 3, 1);
+            pokemonCtx.fillRect(haileeX + 2, haileeY - 12, 3, 1);
+            
+            // Bright eye shine
+            pokemonCtx.fillStyle = '#fff';
+            pokemonCtx.fillRect(haileeX - 4, haileeY - 11, 1, 1);
+            pokemonCtx.fillRect(haileeX + 2, haileeY - 11, 1, 1);
+            
+            // Rosy princess cheeks
+            pokemonCtx.fillStyle = 'rgba(255, 192, 203, 0.6)';
+            pokemonCtx.beginPath();
+            pokemonCtx.arc(haileeX - 5, haileeY - 9, 2, 0, Math.PI * 2);
+            pokemonCtx.fill();
+            pokemonCtx.beginPath();
+            pokemonCtx.arc(haileeX + 5, haileeY - 9, 2, 0, Math.PI * 2);
+            pokemonCtx.fill();
+            
+            // Sweet princess smile
+            pokemonCtx.strokeStyle = '#ff1493';
+            pokemonCtx.lineWidth = 1;
+            pokemonCtx.beginPath();
+            pokemonCtx.arc(haileeX, haileeY - 7, 3, 0, Math.PI);
+            pokemonCtx.stroke();
+            
+            // Small nose
+            pokemonCtx.fillStyle = '#ffb6c1';
+            pokemonCtx.fillRect(haileeX, haileeY - 9, 1, 1);
+
+            // Draw Eric (player) - Pokemon Sapphire trainer style
+            const ericX = eric.x * CELL_SIZE + CELL_SIZE / 2;
+            const ericY = eric.y * CELL_SIZE + CELL_SIZE / 2;
+            
+            // Shadow
+            pokemonCtx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+            pokemonCtx.beginPath();
+            pokemonCtx.ellipse(ericX, ericY + 12, 10, 4, 0, 0, Math.PI * 2);
+            pokemonCtx.fill();
+            
+            // Legs - blue jeans
+            pokemonCtx.fillStyle = '#2c3e50';
+            pokemonCtx.fillRect(ericX - 4, ericY + 4, 3, 8);
+            pokemonCtx.fillRect(ericX + 1, ericY + 4, 3, 8);
+            
+            // Shoes - red
+            pokemonCtx.fillStyle = '#c0392b';
+            pokemonCtx.fillRect(ericX - 5, ericY + 11, 4, 3);
+            pokemonCtx.fillRect(ericX + 1, ericY + 11, 4, 3);
+            
+            // Body - black vest with white collar
+            pokemonCtx.fillStyle = '#34495e';
+            pokemonCtx.fillRect(ericX - 6, ericY - 4, 12, 8);
+            
+            // White collar/shirt
+            pokemonCtx.fillStyle = '#ecf0f1';
+            pokemonCtx.fillRect(ericX - 6, ericY - 4, 12, 2);
+            
+            // Green accents on vest
+            pokemonCtx.fillStyle = '#27ae60';
+            pokemonCtx.fillRect(ericX - 6, ericY - 2, 2, 6);
+            pokemonCtx.fillRect(ericX + 4, ericY - 2, 2, 6);
+            
+            // Arms - skin tone
+            pokemonCtx.fillStyle = '#ffd4a3';
+            pokemonCtx.fillRect(ericX - 8, ericY - 2, 2, 6);
+            pokemonCtx.fillRect(ericX + 6, ericY - 2, 2, 6);
+            
+            // Gloves - green
+            pokemonCtx.fillStyle = '#27ae60';
+            pokemonCtx.fillRect(ericX - 9, ericY + 3, 3, 2);
+            pokemonCtx.fillRect(ericX + 6, ericY + 3, 3, 2);
+            
+            // Neck
+            pokemonCtx.fillStyle = '#ffd4a3';
+            pokemonCtx.fillRect(ericX - 2, ericY - 6, 4, 3);
+            
+            // Head
+            pokemonCtx.fillStyle = '#ffd4a3';
+            pokemonCtx.beginPath();
+            pokemonCtx.arc(ericX, ericY - 10, 6, 0, Math.PI * 2);
+            pokemonCtx.fill();
+            
+            // Hair - black/dark brown under cap
+            pokemonCtx.fillStyle = '#2c3e50';
+            pokemonCtx.fillRect(ericX - 7, ericY - 14, 14, 4);
+            
+            // Hat - red and white (iconic Pokemon cap)
+            pokemonCtx.fillStyle = '#e74c3c';
+            pokemonCtx.beginPath();
+            pokemonCtx.arc(ericX, ericY - 14, 8, Math.PI, 0);
+            pokemonCtx.fill();
+            pokemonCtx.fillRect(ericX - 8, ericY - 14, 16, 3);
+            
+            // White stripe on hat
+            pokemonCtx.fillStyle = '#ecf0f1';
+            pokemonCtx.fillRect(ericX - 8, ericY - 13, 16, 2);
+            
+            // Hat bill
+            pokemonCtx.fillStyle = '#c0392b';
+            pokemonCtx.fillRect(ericX - 2, ericY - 11, 8, 2);
+            
+            // Green symbol on hat (Pokeball-like)
+            pokemonCtx.fillStyle = '#27ae60';
+            pokemonCtx.beginPath();
+            pokemonCtx.arc(ericX, ericY - 16, 3, 0, Math.PI * 2);
+            pokemonCtx.fill();
+            
+            // Face details - eyes
+            pokemonCtx.fillStyle = '#2c3e50';
+            pokemonCtx.fillRect(ericX - 3, ericY - 10, 1, 1);
+            pokemonCtx.fillRect(ericX + 2, ericY - 10, 1, 1);
+            
+            // Smile
+            pokemonCtx.strokeStyle = '#34495e';
+            pokemonCtx.lineWidth = 1;
+            pokemonCtx.beginPath();
+            pokemonCtx.arc(ericX, ericY - 8, 2, 0, Math.PI);
+            pokemonCtx.stroke();
+        }
+
+        // Move Ash
+        function moveEric(dx, dy) {
+            if (!pokemonGameRunning) return;
+
+            const newX = eric.x + dx;
+            const newY = eric.y + dy;
+
+            // Check bounds
+            if (newX < 0 || newX >= COLS || newY < 0 || newY >= ROWS) return;
+
+            // Check wall collision
+            if (maze[newY][newX] === 1) return;
+
+            // Move Ash
+            eric.x = newX;
+            eric.y = newY;
+
+            // Check for pokeball collection
+            pokeballs.forEach(ball => {
+                if (!ball.collected && ball.x === eric.x && ball.y === eric.y) {
+                    ball.collected = true;
+                    pokemonScore += 10;
+                    document.getElementById('pokemonScoreValue').textContent = pokemonScore;
+                }
+            });
+
+            // Check if Ash reached Misty
+            if (eric.x === hailee.x && eric.y === hailee.y) {
+                endPokemonGame();
+            }
+        }
+
+        // Keyboard controls
+        document.addEventListener('keydown', (e) => {
+            if (!pokemonGameRunning) return;
+
+            switch(e.key) {
+                case 'ArrowUp':
+                case 'w':
+                case 'W':
+                    e.preventDefault();
+                    moveEric(0, -1);
+                    break;
+                case 'ArrowDown':
+                case 's':
+                case 'S':
+                    e.preventDefault();
+                    moveEric(0, 1);
+                    break;
+                case 'ArrowLeft':
+                case 'a':
+                case 'A':
+                    e.preventDefault();
+                    moveEric(-1, 0);
+                    break;
+                case 'ArrowRight':
+                case 'd':
+                case 'D':
+                    e.preventDefault();
+                    moveEric(1, 0);
+                    break;
+            }
+        });
+
+        // Touch controls for mobile
+        pokemonCanvas.addEventListener('touchstart', (e) => {
+            if (!pokemonGameRunning) return;
+            e.preventDefault();
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+        }, { passive: false });
+
+        pokemonCanvas.addEventListener('touchend', (e) => {
+            if (!pokemonGameRunning) return;
+            e.preventDefault();
+            
+            const touchEndX = e.changedTouches[0].clientX;
+            const touchEndY = e.changedTouches[0].clientY;
+            
+            const deltaX = touchEndX - touchStartX;
+            const deltaY = touchEndY - touchStartY;
+            
+            const threshold = 30;
+            
+            if (Math.abs(deltaX) > Math.abs(deltaY)) {
+                if (Math.abs(deltaX) > threshold) {
+                    moveEric(deltaX > 0 ? 1 : -1, 0);
+                }
+            } else {
+                if (Math.abs(deltaY) > threshold) {
+                    moveEric(0, deltaY > 0 ? 1 : -1);
+                }
+            }
+        }, { passive: false });
+
+        // Pokemon game loop
+        function pokemonGameLoop() {
+            if (!pokemonGameRunning) return;
+            
+            drawPokemonGame();
+            pokemonAnimationId = requestAnimationFrame(pokemonGameLoop);
+        }
+
+        // End Pokemon game
+        function endPokemonGame() {
+            pokemonGameRunning = false;
+            cancelAnimationFrame(pokemonAnimationId);
+            
+            // Draw final frame with heart
+            drawPokemonGame();
+            
+            // Draw big heart over them
+            const centerX = pokemonCanvas.width / 2;
+            const centerY = pokemonCanvas.height / 2;
+            
+            pokemonCtx.font = '80px Arial';
+            pokemonCtx.textAlign = 'center';
+            pokemonCtx.textBaseline = 'middle';
+            pokemonCtx.fillText('❤️', centerX, centerY);
+            
+            // Update final score
+            document.getElementById('pokemonFinalScore').textContent = pokemonScore;
+            
+            setTimeout(() => {
+                document.getElementById('pokemonEndScreen').classList.add('show');
+            }, 1000);
+        }
+
+        window.addEventListener('resize', () => {
+            if (pokemonGameContainer.classList.contains('active')) {
+                resizePokemonCanvas();
+            }
+        });
     </script>
 </body>
 </html>
