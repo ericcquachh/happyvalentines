@@ -145,6 +145,7 @@
             color: white;
             border: 2px solid transparent;
             order: 1;
+            z-index: 10;
         }
 
         .yes-btn:hover {
@@ -163,6 +164,7 @@
             position: absolute;
             order: 2;
             min-width: 140px;
+            z-index: 5;
         }
 
         .no-btn:hover {
@@ -213,20 +215,64 @@
             color: white;
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             font-size: 24px;
-            font-weight: 400;
-            padding: 16px 48px;
+            font-weight: 500;
+            padding: 18px 48px;
             margin: 20px 0;
             display: inline-block;
             text-decoration: none;
             border-radius: 8px;
-            box-shadow: 0 6px 20px rgba(255, 107, 157, 0.3);
+            box-shadow: 0 8px 25px rgba(255, 107, 157, 0.4);
             transition: all 0.3s ease;
-            border: 2px solid rgba(255, 255, 255, 0.3);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .love-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .love-btn:hover::after {
+            width: 300px;
+            height: 300px;
         }
 
         .love-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(255, 107, 157, 0.4);
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 12px 35px rgba(255, 107, 157, 0.5);
+        }
+
+        .love-btn:active {
+            transform: translateY(-1px) scale(1.01);
+            box-shadow: 0 6px 20px rgba(255, 107, 157, 0.4);
+        }
+
+        /* Pulse animation for buttons */
+        @keyframes buttonPulse {
+            0%, 100% {
+                box-shadow: 0 8px 25px rgba(255, 107, 157, 0.4);
+            }
+            50% {
+                box-shadow: 0 8px 35px rgba(255, 107, 157, 0.6);
+            }
+        }
+
+        .love-btn {
+            animation: buttonPulse 2s ease-in-out infinite;
+        }
+
+        .love-btn:hover {
+            animation: none;
         }
 
         .thank-you {
@@ -288,6 +334,169 @@
                 padding: 18px 50px;
             }
         }
+
+        /* Game Styles */
+        #gameContainer {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 1000;
+            background: linear-gradient(135deg, #fff0f5 0%, #ffe4ec 100%);
+        }
+
+        #gameContainer.active {
+            display: block;
+        }
+
+        #gameCanvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+        }
+
+        .ui-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .score-display {
+            background: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            font-size: 20px;
+            font-weight: 500;
+            color: #c44569;
+        }
+
+        .back-button {
+            background: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+            color: #c44569;
+            text-decoration: none;
+            pointer-events: auto;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        #startScreen, #gameOverScreen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255, 240, 245, 0.95);
+            z-index: 200;
+            padding: 20px;
+        }
+
+        #gameOverScreen {
+            display: none;
+        }
+
+        .game-title {
+            font-size: 48px;
+            font-weight: 300;
+            color: #c44569;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .instruction {
+            font-size: 18px;
+            color: #c44569;
+            margin-bottom: 30px;
+            text-align: center;
+            max-width: 400px;
+            line-height: 1.6;
+        }
+
+        .play-button {
+            background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
+            color: white;
+            font-size: 24px;
+            font-weight: 400;
+            padding: 16px 48px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(255, 107, 157, 0.3);
+            transition: all 0.3s ease;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        .play-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 107, 157, 0.4);
+        }
+
+        .play-button:active {
+            transform: translateY(0);
+        }
+
+        .final-score {
+            font-size: 64px;
+            font-weight: 300;
+            color: #c44569;
+            margin: 20px 0;
+        }
+
+        .game-over-text {
+            font-size: 36px;
+            font-weight: 300;
+            color: #c44569;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .game-title {
+                font-size: 36px;
+            }
+
+            .instruction {
+                font-size: 16px;
+            }
+
+            .score-display {
+                font-size: 18px;
+                padding: 10px 20px;
+            }
+
+            .final-score {
+                font-size: 48px;
+            }
+
+            .game-over-text {
+                font-size: 28px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -310,10 +519,44 @@
 
         <div class="success-container" id="successContainer">
             <div class="love-message">❤️</div>
-            <a href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcDoa1tURo7VpxEi7xhuZ9yRHDjHLvTeRJ6w&s" class="love-btn" target="_blank">
-                I love you!
-            </a>
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <a href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcDoa1tURo7VpxEi7xhuZ9yRHDjHLvTeRJ6w&s" class="love-btn" target="_blank">
+                    I love you!
+                </a>
+                <button class="love-btn" onclick="openGame()" style="background: linear-gradient(135deg, #ff8fab 0%, #ff69b4 100%); cursor: pointer;">
+                    Let's have fun
+                </button>
+            </div>
             <div class="thank-you">Thanks for being my Valentine! 💐</div>
+        </div>
+    </div>
+
+    <!-- Game Container -->
+    <div id="gameContainer">
+        <canvas id="gameCanvas"></canvas>
+        
+        <div class="ui-overlay">
+            <div class="score-display">Score: <span id="scoreValue">0</span></div>
+            <button class="back-button" onclick="exitGame()">← Back</button>
+        </div>
+
+        <div id="startScreen">
+            <h2 class="game-title">Catch the Love! 💕</h2>
+            <p class="instruction">
+                Move the basket to catch falling hearts and flowers!<br>
+                Use your mouse or finger to control the basket.<br>
+                Don't let them fall!
+            </p>
+            <button class="play-button" onclick="startGame()">Start Game</button>
+        </div>
+
+        <div id="gameOverScreen">
+            <p class="game-over-text">Game Over!</p>
+            <div class="final-score" id="finalScore">0</div>
+            <p class="instruction">Great job catching all that love!</p>
+            <button class="play-button" onclick="restartGame()">Play Again</button>
+            <br><br>
+            <button class="back-button" onclick="exitGame()">← Back to Valentine</button>
         </div>
     </div>
 
@@ -523,6 +766,272 @@
                 setInitialNoButtonPosition();
             }
         });
+
+        // Game Functions
+        const gameContainer = document.getElementById('gameContainer');
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        let gameScore = 0;
+        let gameRunning = false;
+        let animationId;
+        let fallingItems = [];
+        let basket = {
+            x: 0,
+            y: 0,
+            width: 80,
+            height: 60
+        };
+        let mouseX = 0;
+        let spawnInterval;
+        let difficulty = 1;
+
+        // Open game
+        function openGame() {
+            gameContainer.classList.add('active');
+            document.getElementById('startScreen').style.display = 'flex';
+            document.getElementById('gameOverScreen').style.display = 'none';
+            resizeCanvas();
+        }
+
+        // Exit game
+        function exitGame() {
+            gameContainer.classList.remove('active');
+            if (gameRunning) {
+                endGame();
+            }
+            gameRunning = false;
+            clearInterval(spawnInterval);
+            cancelAnimationFrame(animationId);
+        }
+
+        // Set canvas size
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            basket.y = canvas.height - 100;
+            basket.x = canvas.width / 2 - basket.width / 2;
+            mouseX = basket.x + basket.width / 2;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+
+        // Item types
+        const itemTypes = ['💕', '❤️', '💖', '🌸', '🌹', '💐', '🌺'];
+
+        // Falling item class
+        class FallingItem {
+            constructor() {
+                this.emoji = itemTypes[Math.floor(Math.random() * itemTypes.length)];
+                this.x = Math.random() * (canvas.width - 40);
+                this.y = -40;
+                this.speed = 2 + Math.random() * 3 * difficulty;
+                this.size = 30 + Math.random() * 10;
+                this.rotation = Math.random() * 360;
+                this.rotationSpeed = (Math.random() - 0.5) * 5;
+                this.caught = false;
+            }
+
+            update() {
+                this.y += this.speed;
+                this.rotation += this.rotationSpeed;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x + this.size / 2, this.y + this.size / 2);
+                ctx.rotate(this.rotation * Math.PI / 180);
+                ctx.font = `${this.size}px Arial`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(this.emoji, 0, 0);
+                ctx.restore();
+            }
+
+            isOffScreen() {
+                return this.y > canvas.height + 50;
+            }
+
+            checkCollision() {
+                const itemCenterX = this.x + this.size / 2;
+                const itemBottom = this.y + this.size;
+
+                return (
+                    itemCenterX > basket.x &&
+                    itemCenterX < basket.x + basket.width &&
+                    itemBottom > basket.y &&
+                    itemBottom < basket.y + 40 &&
+                    !this.caught
+                );
+            }
+        }
+
+        // Draw basket
+        function drawBasket() {
+            const basketCenterX = basket.x + basket.width / 2;
+            
+            // Basket body
+            ctx.fillStyle = '#8B4513';
+            ctx.beginPath();
+            ctx.moveTo(basket.x, basket.y);
+            ctx.lineTo(basket.x + basket.width, basket.y);
+            ctx.lineTo(basket.x + basket.width - 10, basket.y + basket.height);
+            ctx.lineTo(basket.x + 10, basket.y + basket.height);
+            ctx.closePath();
+            ctx.fill();
+
+            // Basket weave pattern
+            ctx.strokeStyle = '#A0522D';
+            ctx.lineWidth = 2;
+            for (let i = 0; i < 5; i++) {
+                const y = basket.y + (i * basket.height / 5);
+                ctx.beginPath();
+                ctx.moveTo(basket.x, y);
+                ctx.lineTo(basket.x + basket.width, y);
+                ctx.stroke();
+            }
+
+            // Basket rim
+            ctx.strokeStyle = '#654321';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(basket.x, basket.y);
+            ctx.lineTo(basket.x + basket.width, basket.y);
+            ctx.stroke();
+
+            // Handle
+            ctx.strokeStyle = '#8B4513';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.arc(basketCenterX, basket.y - 15, 20, 0, Math.PI, true);
+            ctx.stroke();
+        }
+
+        // Spawn items
+        function spawnItem() {
+            if (gameRunning) {
+                fallingItems.push(new FallingItem());
+            }
+        }
+
+        // Update score
+        function updateGameScore(points) {
+            gameScore += points;
+            document.getElementById('scoreValue').textContent = gameScore;
+            
+            // Increase difficulty every 10 points
+            difficulty = 1 + Math.floor(gameScore / 10) * 0.2;
+        }
+
+        // Game loop
+        function gameLoop() {
+            if (!gameRunning) return;
+
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Smooth basket movement
+            const targetX = mouseX - basket.width / 2;
+            basket.x += (targetX - basket.x) * 0.15;
+
+            // Keep basket in bounds
+            basket.x = Math.max(0, Math.min(canvas.width - basket.width, basket.x));
+
+            // Update and draw items
+            for (let i = fallingItems.length - 1; i >= 0; i--) {
+                const item = fallingItems[i];
+                item.update();
+                item.draw();
+
+                // Check collision
+                if (item.checkCollision()) {
+                    item.caught = true;
+                    updateGameScore(1);
+                    fallingItems.splice(i, 1);
+                    
+                    // Visual feedback
+                    createCatchEffect(item.x + item.size / 2, basket.y);
+                } else if (item.isOffScreen()) {
+                    fallingItems.splice(i, 1);
+                }
+            }
+
+            // Draw basket
+            drawBasket();
+
+            animationId = requestAnimationFrame(gameLoop);
+        }
+
+        // Create catch effect
+        function createCatchEffect(x, y) {
+            ctx.save();
+            ctx.fillStyle = 'rgba(255, 107, 157, 0.5)';
+            ctx.beginPath();
+            ctx.arc(x, y, 20, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+        }
+
+        // Mouse/touch controls
+        function updateMousePosition(e) {
+            if (!gameContainer.classList.contains('active')) return;
+            
+            const rect = canvas.getBoundingClientRect();
+            if (e.touches) {
+                mouseX = e.touches[0].clientX - rect.left;
+            } else {
+                mouseX = e.clientX - rect.left;
+            }
+        }
+
+        canvas.addEventListener('mousemove', updateMousePosition);
+        canvas.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            updateMousePosition(e);
+        }, { passive: false });
+
+        canvas.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            updateMousePosition(e);
+        }, { passive: false });
+
+        // Start game
+        function startGame() {
+            document.getElementById('startScreen').style.display = 'none';
+            gameScore = 0;
+            difficulty = 1;
+            fallingItems = [];
+            gameRunning = true;
+            updateGameScore(0);
+            
+            // Spawn items at intervals
+            spawnInterval = setInterval(spawnItem, 800);
+            
+            // Start game loop
+            gameLoop();
+
+            // Game duration: 60 seconds
+            setTimeout(() => {
+                if (gameRunning) {
+                    endGame();
+                }
+            }, 60000);
+        }
+
+        // End game
+        function endGame() {
+            gameRunning = false;
+            clearInterval(spawnInterval);
+            cancelAnimationFrame(animationId);
+            
+            document.getElementById('finalScore').textContent = gameScore;
+            document.getElementById('gameOverScreen').style.display = 'flex';
+        }
+
+        // Restart game
+        function restartGame() {
+            document.getElementById('gameOverScreen').style.display = 'none';
+            startGame();
+        }
     </script>
 </body>
 </html>
